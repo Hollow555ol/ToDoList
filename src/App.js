@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import List from "./components/List/List";
 
 function App() {
-  const [text, setText] = useState("");
+  const [state, setState] = useState({ text: "", todoes: [] });
 
-  const consolelog = () => {
-    console.log(text);
+  const createTodo = () => {
+    setState({ text: "", todoes: [...state.todoes, state.text] });
   };
 
+  console.log(state.todoes);
+
   const onChange = (e) => {
-    setText(e.target.value);
+    setState({ ...state, text: e.target.value });
   };
 
   return (
     <div>
-      <input value={text} onChange={onChange} type="text"></input>
-
-      <button onClick={consolelog}>Add</button>
+      <input value={state.text} onChange={onChange} type="text"></input>
+      <button onClick={createTodo}>Add</button>
+      <List todoes={state.todoes} />
     </div>
   );
 }
