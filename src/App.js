@@ -5,7 +5,10 @@ function App() {
   const [state, setState] = useState({ text: "", todoes: [] });
 
   const createTodo = () => {
-    setState({ text: "", todoes: [...state.todoes, state.text] });
+    setState({
+      text: "",
+      todoes: [...state.todoes, { id: new Date(), title: state.text }],
+    });
   };
 
   console.log(state.todoes);
