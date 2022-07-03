@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import List from "./components/List/List";
 
 function App() {
@@ -11,7 +11,12 @@ function App() {
     });
   };
 
-  console.log(state.todoes);
+  const removeTodo = (id) => {
+    setState({
+      text: state.text,
+      todoes: state.todoes.filter((todo) => todo.id !== id),
+    });
+  };
 
   const onChange = (e) => {
     setState({ ...state, text: e.target.value });
@@ -21,7 +26,7 @@ function App() {
     <div>
       <input value={state.text} onChange={onChange} type="text"></input>
       <button onClick={createTodo}>Add</button>
-      <List todoes={state.todoes} />
+      <List remove={removeTodo} todoes={state.todoes} />
     </div>
   );
 }

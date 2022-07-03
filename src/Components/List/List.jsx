@@ -1,11 +1,11 @@
 import React from "react";
 import ListItem from "../ListItem/ListItem";
 
-const List = ({ todoes }) => {
+const List = ({ todoes, remove }) => {
   return (
     <div>
       {todoes.map((el) => {
-        return <ListItem el={el} key={el.id} />;
+        return <ListItem remove={remove} el={el} key={el.id} />;
       })}
     </div>
   );
