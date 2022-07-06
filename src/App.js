@@ -5,21 +5,27 @@ function App() {
   const [state, setState] = useState({ text: "", todoes: [] });
 
   const createTodo = () => {
-    setState({
-      text: "",
-      todoes: [...state.todoes, { id: new Date(), title: state.text }],
+    setState((oldState) => {
+      return {
+        text: "",
+        todoes: [...oldState.todoes, { id: new Date(), title: oldState.text }],
+      };
     });
   };
 
   const removeTodo = (id) => {
-    setState({
-      text: state.text,
-      todoes: state.todoes.filter((todo) => todo.id !== id),
+    setState((oldState) => {
+      return {
+        text: oldState.text,
+        todoes: oldState.todoes.filter((todo) => todo.id !== id),
+      };
     });
   };
 
   const onChange = (e) => {
-    setState({ ...state, text: e.target.value });
+    setState((oldState) => {
+      return { ...oldState, text: e.target.value };
+    });
   };
 
   return (
