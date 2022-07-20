@@ -1,16 +1,22 @@
 import { useState } from "react";
 import List from "./components/List/List";
+import classes from "./App.module.css";
 
 function App() {
   const [state, setState] = useState({ text: "", todoes: [] });
 
   const createTodo = () => {
-    setState((oldState) => {
-      return {
-        text: "",
-        todoes: [...oldState.todoes, { id: new Date(), title: oldState.text }],
-      };
-    });
+    if (state.text.trim().length > 0) {
+      setState((oldState) => {
+        return {
+          text: "",
+          todoes: [
+            ...oldState.todoes,
+            { id: new Date(), title: oldState.text },
+          ],
+        };
+      });
+    }
   };
 
   const removeTodo = (id) => {
@@ -29,10 +35,31 @@ function App() {
   };
 
   return (
-    <div>
-      <input value={state.text} onChange={onChange} type="text"></input>
-      <button onClick={createTodo}>Add</button>
-      <List remove={removeTodo} todoes={state.todoes} />
+    <div className={classes.body}>
+      <div className={classes.app}>
+        <div className={classes.todoContainer}>
+          <h1 className={classes.title}>To Do App</h1>
+          <div className={classes.inputContainer}>
+            <input
+              className={classes.input}
+              value={state.text}
+              onChange={onChange}
+              type="text"
+              placeholder="to do"
+            ></input>
+            <button className={classes.button} onClick={createTodo}>
+              +
+            </button>
+          </div>
+
+          {state.todoes.length > 0 && (
+            <>
+              <hr className={classes.horisontalLine} />
+              <List remove={removeTodo} todoes={state.todoes} />
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
